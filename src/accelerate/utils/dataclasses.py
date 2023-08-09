@@ -241,6 +241,7 @@ class SageMakerDistributedType(str, enum.Enum):
     NO = "NO"
     DATA_PARALLEL = "DATA_PARALLEL"
     MODEL_PARALLEL = "MODEL_PARALLEL"
+    FSDP = "SG_FSDP"
 
 
 class ComputeEnvironment(str, enum.Enum):

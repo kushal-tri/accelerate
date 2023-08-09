@@ -435,6 +435,8 @@ def prepare_sagemager_args_inputs(
     distribution = None
     if sagemaker_config.distributed_type == SageMakerDistributedType.DATA_PARALLEL:
         distribution = {"smdistributed": {"dataparallel": {"enabled": True}}}
+    elif sagemaker_config.distributed_type == SageMakerDistributedType.FSDP:
+        distribution={"torch_distributed": {"enabled": True}} # enable torchrun
 
     # configure sagemaker inputs
     sagemaker_inputs = None
