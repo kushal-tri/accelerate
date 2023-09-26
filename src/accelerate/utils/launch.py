@@ -18,6 +18,7 @@ import sys
 from ast import literal_eval
 from typing import Any, Dict, List, Tuple
 
+import regex
 import torch
 
 from ..commands.config.config_args import SageMakerConfig
@@ -373,6 +374,32 @@ def _convert_nargs_to_dict(nargs: List[str]) -> Dict[str, str]:
                 parser.add_argument(argument, type=_infer_type)
             else:
                 parser.add_argument(argument, action=action)
+
+
+    narg_dict = {}
+    current_arg = None
+    values = []
+    # for arg in nargs:
+    #     if arg.startswith(("-", "--")):
+    #         if current_arg is not None:
+    #             current_arg = regex.match("-[-]?([a-zA-Z0-9-_]+)", current_arg).group(1)
+    #             if len(values) == 1:
+    #                 value = values[0]
+    #                 value = literal_eval(value) if value in ("True", "False") else value
+    #                 narg_dict[current_arg] = value
+    #             else:
+    #                 narg_dict[current_arg] = ' '.join(values)
+    #             current_arg = None
+    #             values = []
+    #         if "=" in arg:
+    #             arg = arg.split("=")[0]
+    #             val = arg.split("=")[1]
+    #             narg_dict[arg] = val
+    #         else:
+    #             current_arg = arg
+    #     else:
+    #         values.append(arg)
+    # return narg_dict
 
     return {
         key: (literal_eval(value) if value in ("True", "False") else value)
